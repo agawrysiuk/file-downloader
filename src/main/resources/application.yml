@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: file-downloader
+
+logging:
+  level:
+    pl.agawrysiuk.filedownloader: DEBUG
+
+app:
+  retry:
+    max-attempts: 3
+    delay: 2000 # in milliseconds
