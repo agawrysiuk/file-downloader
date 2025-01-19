@@ -21,11 +21,11 @@ A Spring Boot application to handle file downloads from specified URLs, with ret
   "links": [
     {
       "link": "http://example.com/file1.txt",
-      "subFilePath": "subdir/file1.txt"
+      "subFilePath": "subdir"
     },
     {
       "link": "http://example.com/file2.jpg",
-      "subFilePath": "images/file2.jpg"
+      "subFilePath": "images"
     }
   ],
   "targetDir": "/path/to/download/directory"
