@@ -3,10 +3,10 @@ package pl.agawrysiuk.filedownloader.controller
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import pl.agawrysiuk.filedownloader.dto.FileDownloadRequestDTO
 import org.springframework.web.bind.annotation.*
-import pl.agawrysiuk.filedownloader.dto.FileDownloadResponse
 import pl.agawrysiuk.filedownloader.service.FileDownloadService
+import pl.agawrysiuk.filedownloaderdto.FileDownloadRequestDTO
+import pl.agawrysiuk.filedownloaderdto.FileDownloadResponse
 
 @RestController
 @RequestMapping("/api/files")

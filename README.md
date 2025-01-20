@@ -77,6 +77,8 @@ Access the API documentation at `/swagger-ui.html`.
 
 ## Running the Application
 
+Use the dtos from [https://github.com/agawrysiuk/file-downloader-dto](https://github.com/agawrysiuk/file-downloader-dto)
+
 Run the application using the following command:
 
 ```bash

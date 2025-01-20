@@ -6,8 +6,8 @@ plugins {
     id 'jacoco'
 }
 
-group = 'org.example'
-version = '0.0.1-SNAPSHOT'
+group = 'pl.agawrysiuk'
+version = '1.0.0'
 
 java {
     toolchain {
@@ -17,9 +17,11 @@ java {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
+    implementation 'pl.agawrysiuk:file-downloader-dto:1.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'

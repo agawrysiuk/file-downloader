@@ -2,8 +2,8 @@ package pl.agawrysiuk.filedownloader.service
 
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
-import pl.agawrysiuk.filedownloader.dto.FileDownloadRequestDTO
-import pl.agawrysiuk.filedownloader.dto.FileDownloadResult
+import pl.agawrysiuk.filedownloaderdto.FileDownloadRequestDTO
+import pl.agawrysiuk.filedownloaderdto.FileDownloadResult
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
