@@ -60,28 +60,16 @@ A Spring Boot application to handle file downloads from specified URLs, with ret
 
 ### Dockerfile
 Build and run the application in Docker:
-```dockerfile
-FROM openjdk:17-jdk-slim
-VOLUME /tmp
-COPY build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+```bash
+docker build --tag 'file-downloader'
+docker run -v /your-path:/data -p 8080:8080 file-downloader
 ```
 
 ### Docker Compose
-```yaml
-version: '3.8'
-services:
-  file-download-service:
-    build: .
-    volumes:
-      - ./host-download:/downloads
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
+Run `docker-compose.yml` file - replace `your-path` to the path in your PC.
+```bash
+docker-compose up --build
 ```
-
-Change `volumes` path to move the downloads to the other host folder.
 
 ## Swagger Documentation
 
