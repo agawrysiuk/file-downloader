@@ -11,6 +11,10 @@ A Spring Boot application to handle file downloads from specified URLs, with ret
 - Generates logs for download progress and errors.
 - Swagger API documentation for easy testing and interaction.
 
+## DTOs
+
+Use the dtos from [https://github.com/agawrysiuk/file-downloader-dto](https://github.com/agawrysiuk/file-downloader-dto)
+
 ## Endpoints
 
 ### POST /api/files/download
@@ -76,8 +80,6 @@ docker-compose up --build
 Access the API documentation at `/swagger-ui.html`.
 
 ## Running the Application
-
-Use the dtos from [https://github.com/agawrysiuk/file-downloader-dto](https://github.com/agawrysiuk/file-downloader-dto)
 
 Run the application using the following command:
 
