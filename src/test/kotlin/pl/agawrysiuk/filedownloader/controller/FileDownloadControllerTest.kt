@@ -11,11 +11,11 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import pl.agawrysiuk.filedownloader.dto.DownloadLinkDTO
-import pl.agawrysiuk.filedownloader.dto.FileDownloadRequestDTO
-import pl.agawrysiuk.filedownloader.dto.FileDownloadResponse
-import pl.agawrysiuk.filedownloader.dto.FileDownloadResult
 import pl.agawrysiuk.filedownloader.service.FileDownloadService
+import pl.agawrysiuk.filedownloaderdto.DownloadLinkDTO
+import pl.agawrysiuk.filedownloaderdto.FileDownloadRequestDTO
+import pl.agawrysiuk.filedownloaderdto.FileDownloadResponse
+import pl.agawrysiuk.filedownloaderdto.FileDownloadResult
 
 @WebMvcTest(FileDownloadController::class)
 class FileDownloadControllerTest {

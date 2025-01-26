@@ -4,16 +4,14 @@ import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import pl.agawrysiuk.filedownloaderdto.FileDownloadRequestDTO
 import pl.agawrysiuk.filedownloaderdto.FileDownloadResult
-import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStream
 import java.net.URL
-import java.nio.file.Paths
 
 
 @Service
 class FileDownloadService(
-    private val retryService: RetryService
+    private val retryService: RetryService,
+    private val fileSaverService: FileSaverService,
 ) {
     companion object {
         private val logger = KotlinLogging.logger {}
@@ -23,7 +21,6 @@ class FileDownloadService(
         val results = mutableListOf<FileDownloadResult>()
 
         request.links.forEach { linkDTO ->
-            val targetDir = Paths.get(request.targetDir, linkDTO.subFilePath ?: "")
             val fileName = URL(linkDTO.link).file
                 .substring(URL(linkDTO.link).file.lastIndexOf('/') + 1)
 
@@ -31,7 +28,7 @@ class FileDownloadService(
                 downloadFile(
                     linkDTO.link,
                     fileName,
-                    targetDir.toFile()
+                    linkDTO.subFilePath,
                 )
             })
         }
@@ -39,7 +36,7 @@ class FileDownloadService(
         return results
     }
 
-    private fun downloadFile(url: String, fileName: String, downloadDir: File): FileDownloadResult {
+    private fun downloadFile(url: String, fileName: String, subFilePath: String?): FileDownloadResult {
         try {
             val website = URL(url)
             val connection = website.openConnection()
@@ -49,28 +46,25 @@ class FileDownloadService(
             }
             val inputStream: InputStream = connection.getInputStream()
 
-            if (!downloadDir.exists()) downloadDir.mkdirs()
-            val outputFile = File(downloadDir, fileName)
-
             val buffer = ByteArray(4096)
             var bytesRead: Int
             var downloadedSize = 0
 
-            FileOutputStream(outputFile).use { output ->
-                inputStream.use { input ->
-                    while (input.read(buffer).also { bytesRead = it } != -1) {
-                        output.write(buffer, 0, bytesRead)
-                        downloadedSize += bytesRead
+            val outputStream = mutableListOf<Byte>()
+            inputStream.use { input ->
+                while (input.read(buffer).also { bytesRead = it } != -1) {
+                    outputStream.addAll(buffer.take(bytesRead))
+                    downloadedSize += bytesRead
 
-                        if (totalSize > 0) {
-                            printProgress(downloadedSize, totalSize, fileName)
-                            print("\n")
-                        }
+                    if (totalSize > 0) {
+                        printProgress(downloadedSize, totalSize, fileName)
                     }
                 }
             }
-            logger.info { "File downloaded successfully: ${outputFile.absolutePath}" }
-            return FileDownloadResult(url, success = true, filePath = outputFile.absolutePath)
+
+            val savedPath = fileSaverService.save(fileName, subFilePath, outputStream.toByteArray())
+            logger.info { "File downloaded successfully: $savedPath" }
+            return FileDownloadResult(url, success = true, filePath = savedPath)
         } catch (e: Exception) {
             logger.error { "Failed to download ${url}: ${e.message}" }
             e.printStackTrace()

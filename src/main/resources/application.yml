@@ -10,3 +10,6 @@ app:
   retry:
     max-attempts: 3
     delay: 2000 # in milliseconds
+  service:
+    local:
+      path: ${LOCAL_DOWNLOAD_FOLDER:}
