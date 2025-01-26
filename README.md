@@ -7,13 +7,23 @@ A Spring Boot application to handle file downloads from specified URLs, with ret
 
 - Accepts file download requests via REST API.
 - Allows retry on failure (configurable retry attempts and delay).
-- Supports storing downloaded files to a specified directory.
+- Supports storing downloaded files to multiple options (`DEFAULT_SERVICE` environment variable):
+  - `local` option: to a specified directory via [LocalFileSaverService]
+  - `s3` option: to s3 mock bucket via [S3FileSaverService]
+  - default is `local`
 - Generates logs for download progress and errors.
 - Swagger API documentation for easy testing and interaction.
 
 ## DTOs
 
 Use the dtos from [https://github.com/agawrysiuk/file-downloader-dto](https://github.com/agawrysiuk/file-downloader-dto)
+
+## S3
+
+Use your regular S3 or mock for the local development by:
+```
+docker run -p 9090:9090 -p 9191:9191 -t adobe/s3mock
+```
 
 ## Endpoints
 

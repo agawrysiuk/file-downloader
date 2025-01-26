@@ -35,6 +35,11 @@ class LocalFileServiceTest {
         File(result).delete()
     }
 
+    @Test
+    fun `should return correct name`() {
+        assertEquals("local", localFileSaverService.name)
+    }
+
     companion object {
         private val byteArray = byteArrayOf(72, 101, 108, 108, 111) // "Hello"
         private val fileName = "example.txt"

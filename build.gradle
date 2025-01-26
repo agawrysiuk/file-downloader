@@ -21,16 +21,28 @@ repositories {
 }
 
 dependencies {
+    // mine
     implementation 'pl.agawrysiuk:file-downloader-dto:1.0'
+    // spring boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // kotlin
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    // jackson
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    // logging
     implementation 'io.github.microutils:kotlin-logging:3.0.5'
+    // swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    // retry
     implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.0.2'
+    // aws
+    implementation platform('software.amazon.awssdk:bom:2.30.6')
+    implementation 'software.amazon.awssdk:s3:2.30.6'
+    // test
+    testImplementation 'com.adobe.testing:s3mock-junit5:3.12.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.mockk:mockk:1.13.2'
 }

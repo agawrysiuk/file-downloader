@@ -22,8 +22,9 @@ class FileDownloadServiceTest {
     fun setUp() {
         saverMock = mockk<FileSaverService>() {
             every { save(any(), any(), any()) } returnsArgument (0)
+            every { name } returns "mockk"
         }
-        fileDownloadService = FileDownloadService(RetryService(), saverMock)
+        fileDownloadService = FileDownloadService(RetryService(), listOf(saverMock), "mockk")
     }
 
     @Test

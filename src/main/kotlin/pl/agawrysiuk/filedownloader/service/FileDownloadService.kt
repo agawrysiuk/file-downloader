@@ -1,6 +1,7 @@
 package pl.agawrysiuk.filedownloader.service
 
 import mu.KotlinLogging
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import pl.agawrysiuk.filedownloaderdto.FileDownloadRequestDTO
 import pl.agawrysiuk.filedownloaderdto.FileDownloadResult
@@ -11,11 +12,15 @@ import java.net.URL
 @Service
 class FileDownloadService(
     private val retryService: RetryService,
-    private val fileSaverService: FileSaverService,
+    fileSaverServices: List<FileSaverService>,
+    @Value("\${app.service.default}") private var defaultServiceName: String,
 ) {
     companion object {
         private val logger = KotlinLogging.logger {}
     }
+
+    private val fileSaverService = fileSaverServices.firstOrNull { it.name == defaultServiceName }
+        ?: fileSaverServices.first { it.name == LocalFileSaverService.NAME }
 
     fun downloadFiles(request: FileDownloadRequestDTO): List<FileDownloadResult> {
         val results = mutableListOf<FileDownloadResult>()

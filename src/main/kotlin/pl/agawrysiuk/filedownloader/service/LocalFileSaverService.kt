@@ -13,6 +13,8 @@ class LocalFileSaverService : FileSaverService {
     @Value("\${app.service.local.path}")
     private var localPath: String? = null
 
+    override val name: String = NAME
+
     override fun save(fileName: String, subFilePath: String?, fileContent: ByteArray): String {
         val saveDir = getSaveDir()
         val filePath = getFilePath(subFilePath, saveDir, fileName)
@@ -29,7 +31,7 @@ class LocalFileSaverService : FileSaverService {
 
 
     private fun getFilePath(subFilePath: String?, saveDir: String, fileName: String): Path =
-        if (subFilePath != null) Paths.get(saveDir, subFilePath, fileName) else Paths.get(saveDir, fileName)
+        subFilePath?.let { Paths.get(saveDir, it, fileName) } ?: Paths.get(saveDir, fileName)
 
 
     private fun createDirsIfNotExist(filePath: Path) {
@@ -41,5 +43,9 @@ class LocalFileSaverService : FileSaverService {
     private fun save(filePath: Path, fileContent: ByteArray): String {
         Files.write(filePath, fileContent)
         return filePath.toAbsolutePath().toString()
+    }
+
+    companion object {
+        const val NAME: String = "local"
     }
 }

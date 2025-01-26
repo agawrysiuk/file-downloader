@@ -11,5 +11,13 @@ app:
     max-attempts: 3
     delay: 2000 # in milliseconds
   service:
+    default: ${DEFAULT_SERVICE:local}
     local:
       path: ${LOCAL_DOWNLOAD_FOLDER:}
+    s3:
+      endpoint: ${S3_ENDPOINT:http://localhost:9090}
+      bucket: ${S3_BUCKET:test-bucket}
+      region: ${S3_REGION:us-east-1}
+      accessKey: ${S3_ACCESS_KEY:accessKey}
+      secretKey: ${S3_SECRET_KEY:secretKey}
+
